@@ -1,5 +1,12 @@
 ---
 - hosts: mysql
+  handlers:
+    - name: restart mysql
+      service:
+        name: mysql
+        state: restarted
+      become: yes
+
   tasks:
     - name: "Instalando pacotes do sistema nescessarios para o mysql"
       apt:
@@ -20,6 +27,19 @@
         password: "12345"
         priv: "wordpress_db.*:ALL"
         state: present
+        host: "{{ item }}"
+      with_items:
+        - 'localhost'
+        - '127.0.0.1'
+        - '192.168.1.13'
+
+    - name: "Copiando arquivo de configuração do mysql"
+      copy:
+        src: "../../files/my.cnf"
+        dest: "/etc/mysql/my.cnf"
+      become: yes
+      notify:
+        - restart mysql
 
 - hosts: wordpress
   handlers:
@@ -73,6 +93,7 @@
         - { regex: "database_name_here", value: "wordpress_db" }
         - { regex: "username_here", value: "wordpress_user" }
         - { regex: "password_here", value: "12345" }
+        - { regex: "localhost", value: "192.168.1.14" }
       become: yes
 
     - name: "Copiando arquivo de configuração do apache"

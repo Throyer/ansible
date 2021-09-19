@@ -1,11 +1,15 @@
 {
-    "cSpell.ignorePaths": [
-        "package-lock.json",
-        "node_modules",
-        "vscode-extension",
-        ".git/objects",
-        ".vscode",
-        ".vscode-insiders",
-        "**.yml"
-    ]
+  "cSpell.ignorePaths": [
+    "package-lock.json",
+    "node_modules",
+    "vscode-extension",
+    ".git/objects",
+    ".vscode",
+    ".vscode-insiders",
+    "**.yml"
+  ],
+  "files.associations": {
+    "**/*.yml": "ansible"
+  },
+  "ansible.ansibleLint.enabled": false
 }

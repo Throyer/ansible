@@ -6,7 +6,4 @@
 - hosts: wordpress
   roles:
     - webserver
-
-- hosts: wordpress
-  roles:
     - wordpress

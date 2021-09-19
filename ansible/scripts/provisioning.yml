@@ -42,9 +42,9 @@
         priv: 'wordpress_db.*:ALL'
         state: present
 
-    - name: 'Fazendo download da ultima versão do wordpress'
+    - name: 'Fazendo download da versão 5.0 do wordpress'
       get_url:
-        url: https://wordpress.org/latest.tar.gz
+        url: https://wordpress.org/wordpress-5.0.tar.gz
         dest: '/tmp/wordpress.tar.gz'
 
     - name: 'Descompactando arquivo do wordpress'

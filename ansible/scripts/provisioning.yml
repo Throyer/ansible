@@ -16,22 +16,22 @@
 
     - name: "Criando schema no MySQL"
       mysql_db:
-        name: wordpress_db
+        name: "{{ DATABASE_NAME }}"
         login_user: root
         state: present
 
     - name: "Criando usuario no MySQL"
       mysql_user:
         login_user: root
-        name: wordpress_user
-        password: "12345"
-        priv: "wordpress_db.*:ALL"
+        name: "{{ DATABASE_USER }}"
+        password: "{{ DATABASE_PASSWORD }}"
+        priv: "{{ DATABASE_NAME }}.*:ALL"
         state: present
         host: "{{ item }}"
       with_items:
         - 'localhost'
         - '127.0.0.1'
-        - '192.168.1.13'
+        - '{{ HOST_WORDPRESS }}'
 
     - name: "Copiando arquivo de configuração do mysql"
       copy:
@@ -79,21 +79,21 @@
 
     - name: "Fazendo uma cópia do arquivo de exemplo de configuração do wordpress"
       copy:
-        src: "/var/www/wordpress/wp-config-sample.php"
-        dest: "/var/www/wordpress/wp-config.php"
+        src: "{{ WORDPRESS_DIR }}/wp-config-sample.php"
+        dest: "{{ WORDPRESS_DIR }}/wp-config.php"
         remote_src: yes
       become: yes
 
     - name: "Substituindo variaveis de ambiente no arquivo de configuração do wordpress"
       replace:
-        path: "/var/www/wordpress/wp-config.php"
+        path: "{{ WORDPRESS_DIR }}/wp-config.php"
         regexp: "{{ item.regex }}"
         replace: "{{ item.value }}"
       with_items:
-        - { regex: "database_name_here", value: "wordpress_db" }
-        - { regex: "username_here", value: "wordpress_user" }
-        - { regex: "password_here", value: "12345" }
-        - { regex: "localhost", value: "192.168.1.14" }
+        - { regex: "database_name_here", value: "{{ DATABASE_NAME }}" }
+        - { regex: "username_here", value: "{{ DATABASE_USER }}" }
+        - { regex: "password_here", value: "{{ DATABASE_PASSWORD }}" }
+        - { regex: "localhost", value: "{{ HOST_MYSQL }}" }
       become: yes
 
     - name: "Copiando arquivo de configuração do apache"

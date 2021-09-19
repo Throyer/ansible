@@ -1,0 +1,7 @@
+# database
+DATABASE_NAME: wordpress_db
+DATABASE_USER: wordpress_user
+DATABASE_PASSWORD: '12345'
+
+# wordpress installation dir
+WORDPRESS_DIR: '/var/www/wordpress'

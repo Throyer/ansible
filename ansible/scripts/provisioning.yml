@@ -1,5 +1,12 @@
 ---
 - hosts: all
+  handlers:
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
+      become: yes
+
   tasks:
     # - name: 'Criar arquivo txt na pasta vagrant'
     #   shell: 'echo hello > /vagrant/hello.txt'
@@ -70,3 +77,5 @@
         src: '../../files/000-default.conf'
         dest: '/etc/apache2/sites-available/000-default.conf'
       become: yes
+      notify:
+        - restart apache

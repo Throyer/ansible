@@ -1,0 +1,23 @@
+---
+- hosts: all
+  tasks:
+    # - name: 'Criar arquivo txt na pasta vagrant'
+    #   shell: 'echo hello > /vagrant/hello.txt'
+
+    - name: 'Instalar o PHP5 5'
+      apt:
+        name: php5
+        state: latest
+      become: yes
+
+    - name: 'Instalar o Apache2'
+      apt:
+        name: apache2
+        state: latest
+      become: yes
+
+    - name: 'Instalar o modphp'
+      apt:
+        name: libapache2-mod-php5
+        state: latest
+      become: yes

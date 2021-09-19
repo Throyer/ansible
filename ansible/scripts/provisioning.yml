@@ -35,7 +35,7 @@
 
     - name: "Copiando arquivo de configuração do mysql"
       copy:
-        src: "../../files/my.cnf"
+        src: "../files/my.cnf"
         dest: "/etc/mysql/my.cnf"
       become: yes
       notify:
@@ -99,6 +99,14 @@
     - name: "Copiando arquivo de configuração do apache"
       copy:
         src: "../../files/000-default.conf"
+        dest: "/etc/apache2/sites-available/000-default.conf"
+      become: yes
+      notify:
+        - restart apache
+
+    - name: "Copiando arquivo de configuração do apache"
+      template:
+        src: "../templates/000-default.conf.j2"
         dest: "/etc/apache2/sites-available/000-default.conf"
       become: yes
       notify:

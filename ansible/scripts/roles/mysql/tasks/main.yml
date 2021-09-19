@@ -26,7 +26,7 @@
 
 - name: "Copiando arquivo de configuração do mysql"
   copy:
-    src: "../files/my.cnf"
+    src: "my.cnf"
     dest: "/etc/mysql/my.cnf"
   become: yes
   notify:

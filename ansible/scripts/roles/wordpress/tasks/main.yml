@@ -32,7 +32,7 @@
 
 - name: "Copiando arquivo de configuração do apache"
   template:
-    src: "../templates/000-default.conf.j2"
+    src: "000-default.conf.j2"
     dest: "/etc/apache2/sites-available/000-default.conf"
   become: yes
   notify:
